@@ -9,17 +9,15 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "tasks")
-public class Task{
-
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long task_id;
-    private String description;
-    private TaskStatus status;
+    private Long role_id;
+    @Column(name = "role_name")
+    String roleName;
+    String description;
 
-    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private Set<Person> people = new HashSet<>();
-
-
 }
