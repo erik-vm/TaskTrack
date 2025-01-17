@@ -25,6 +25,9 @@ public class Person {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @OneToOne(mappedBy = "person", cascade = ALL)
+    private User user;
+
     @ManyToMany(cascade = ALL, fetch = EAGER)
     @JoinTable(name = "person_role",
             joinColumns = {@JoinColumn(name = "person_id")},
