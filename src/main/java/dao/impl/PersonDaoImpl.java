@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import model.Person;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,11 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public Person savePerson(Person person) {
         if (person.getPerson_id() == null) {
+            person.setCreatedAt(LocalDateTime.now());
+            person.setUpdatedAt(LocalDateTime.now());
             em.persist(person);
         } else {
+            person.setCreatedAt(LocalDateTime.now());
             em.merge(person);
         }
         return person;
@@ -40,14 +44,18 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public List<Person> getAllPersons() {
-        return em.createQuery("select p from Person p", Person.class).getResultList();
+        return em.createQuery("select p from Person p where p.deleted = false ", Person.class).getResultList();
     }
 
     @Transactional
     @Override
     public int deletePersonById(Long id) {
-        Query query = em.createQuery("delete from Person p where p.person_id=:id");
+        LocalDateTime currentTimestamp = LocalDateTime.now();
+
+        Query query = em.createQuery("UPDATE Person p SET p.deleted = true, p.deletedAt = :deletedAt WHERE p.person_id = :id");
         query.setParameter("id", id);
+        query.setParameter("deletedAt", currentTimestamp);
+
         return query.executeUpdate();
     }
 }

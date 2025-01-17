@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,16 +29,22 @@ public class Person {
     @OneToOne(mappedBy = "person", cascade = ALL)
     private User user;
 
-    @ManyToMany(cascade = ALL, fetch = EAGER)
-    @JoinTable(name = "person_role",
-            joinColumns = {@JoinColumn(name = "person_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles = new HashSet<>();
+    @OneToMany(mappedBy = "person", cascade = ALL, fetch = EAGER)
+    private Set<PersonRole> personRoles = new HashSet<>();
 
-    @ManyToMany(cascade = ALL, fetch = EAGER)
-    @JoinTable(name = "person_task",
-            joinColumns = {@JoinColumn(name = "person_id")},
-            inverseJoinColumns = {@JoinColumn(name = "task_id")})
-    private Set<Task> tasks = new HashSet<>();
+    @OneToMany(mappedBy = "person", cascade = ALL, fetch = EAGER)
+    private Set<PersonTask> personTasks = new HashSet<>();
+
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted = false;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
 }

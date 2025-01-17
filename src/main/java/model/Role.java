@@ -18,6 +18,6 @@ public class Role {
     String roleName;
     String description;
 
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-    private Set<Person> people = new HashSet<>();
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private Set<PersonRole> people = new HashSet<>();
 }
