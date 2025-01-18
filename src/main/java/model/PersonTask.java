@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +14,9 @@ public class PersonTask {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long person_task_id;
+    @JsonIgnore
+    @Column(name = "person_task_id")
+    private Long personTaskId;
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
@@ -22,8 +25,6 @@ public class PersonTask {
     @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
-
-    private TaskStatus status;
 
     @Column(name = "started_at", nullable = false)
     private LocalDateTime startedAt;

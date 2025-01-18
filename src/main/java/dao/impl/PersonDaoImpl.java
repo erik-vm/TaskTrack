@@ -18,12 +18,9 @@ public class PersonDaoImpl implements PersonDao {
     @Transactional
     @Override
     public Person savePerson(Person person) {
-        if (person.getPerson_id() == null) {
-            person.setCreatedAt(LocalDateTime.now());
-            person.setUpdatedAt(LocalDateTime.now());
+        if (person.getPersonId() == null) {
             em.persist(person);
         } else {
-            person.setCreatedAt(LocalDateTime.now());
             em.merge(person);
         }
         return person;
@@ -32,7 +29,7 @@ public class PersonDaoImpl implements PersonDao {
     @Transactional
     @Override
     public Person getPersonById(Long id) {
-        TypedQuery<Person> query = em.createQuery("select p from Person p where p.person_id =:id", Person.class);
+        TypedQuery<Person> query = em.createQuery("select p from Person p where p.personId =:id", Person.class);
         query.setParameter("id", id);
         try {
             return query.getSingleResult();
@@ -51,7 +48,7 @@ public class PersonDaoImpl implements PersonDao {
     public int deletePersonById(Long id) {
         LocalDateTime currentTimestamp = LocalDateTime.now();
 
-        Query query = em.createQuery("UPDATE Person p SET p.deleted = true, p.deletedAt = :deletedAt WHERE p.person_id = :id");
+        Query query = em.createQuery("UPDATE Person p SET p.deleted = true, p.deletedAt = :deletedAt WHERE p.personId = :id");
         query.setParameter("id", id);
         query.setParameter("deletedAt", currentTimestamp);
 

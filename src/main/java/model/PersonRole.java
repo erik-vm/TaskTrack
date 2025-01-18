@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +14,9 @@ public class PersonRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long person_role_id;
+    @JsonIgnore
+    @Column(name = "person_role_id")
+    private Long personRoleId;
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)

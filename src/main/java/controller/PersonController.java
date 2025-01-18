@@ -28,31 +28,34 @@ public class PersonController {
         return service.savePerson(person);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updatePerson(@PathVariable(name = "id") Long id, @RequestBody @Valid Person person) {
+        Person personToUpdate = service.updatePersonById(id, person);
+        if (personToUpdate == null) {
+            return new ResponseEntity<>("Person update failed! Check id!", BAD_REQUEST);
+        }
+        return new ResponseEntity<>(personToUpdate, OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getPersonById(@PathVariable(name = "id") Long id) {
         Person personToFind = service.getPersonById(id);
         if (personToFind == null) {
-            return new ResponseEntity<>("Person not found!", BAD_REQUEST);
+            return new ResponseEntity<>("Person not found! Check id!", BAD_REQUEST);
         }
         return new ResponseEntity<>(personToFind, OK);
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllPersons() {
-        List<Person> personList = service.getAllPersons();
-        System.out.println(personList);
-        if (personList == null) {
-            return new ResponseEntity<>("No persons found in a list!", BAD_REQUEST);
-        }
-        return new ResponseEntity<>(personList, OK);
+    public List<Person> getAllPersons() {
+        return service.getAllPersons();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletePersonById(@PathVariable(name = "id") Long id) {
         int result = service.deletePersonById(id);
-        System.out.println(result);
         if (result == 0) {
-            return new ResponseEntity<>("Deleting failed!", BAD_REQUEST);
+            return new ResponseEntity<>("Deleting failed! Check id", BAD_REQUEST);
         }
         return new ResponseEntity<>("Delete successful!", OK);
     }

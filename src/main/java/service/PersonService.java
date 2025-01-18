@@ -9,6 +9,8 @@ public interface PersonService {
 
     Person getPersonById(Long id);
 
+    Person updatePersonById(Long id, Person person);
+
     List<Person> getAllPersons();
 
     int deletePersonById(Long id);

@@ -13,7 +13,8 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long role_id;
+    @Column(name = "role_id")
+    private Long roleId;
     @Column(name = "role_name")
     String roleName;
     String description;

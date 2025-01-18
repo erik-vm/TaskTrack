@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -17,12 +17,16 @@ import static jakarta.persistence.FetchType.EAGER;
 @Data
 @Entity
 @Table(name = "persons")
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private Long person_id;
+    @Column(name = "person_id")
+    private Long personId;
 
     @NotNull
     @Size(min = 1, max = 50, message = "First name must be between 1-50 characters!")
@@ -62,7 +66,7 @@ public class Person {
     private LocalDateTime createdAt;
 
     @JsonIgnore
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @JsonIgnore
