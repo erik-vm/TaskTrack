@@ -1,17 +1,13 @@
 package dao.impl;
 
 import dao.PersonDao;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import model.Person;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class PersonDaoImpl implements PersonDao {
@@ -35,11 +31,14 @@ public class PersonDaoImpl implements PersonDao {
 
     @Transactional
     @Override
-    public Optional<Person> getPersonById(Long id) {
+    public Person getPersonById(Long id) {
         TypedQuery<Person> query = em.createQuery("select p from Person p where p.person_id =:id", Person.class);
         query.setParameter("id", id);
-
-        return Optional.ofNullable(query.getSingleResult());
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

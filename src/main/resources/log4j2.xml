@@ -2,16 +2,25 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout
-                pattern="%level: %c{0}:%L %msg%n"/>
+            <PatternLayout pattern="%level: %c{0}:%L %msg%n"/>
         </Console>
+        <File name="InfoLogFile" fileName="logs/info.log">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5p {%c{1}} - %m%n"/>
+        </File>
+        <File name="DebugLogFile" fileName="logs/debug.log">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5p {%c{1}} - %m%n"/>
+        </File>
     </Appenders>
+
     <Loggers>
-
-        <Logger name="org.hibernate.SQL" level="warn"/>
-
-        <Root level="error">
+        <Root level="warn">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoLogFile"/>
         </Root>
+
+        <Logger name="controller" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DebugLogFile"/>
+        </Logger>
     </Loggers>
 </Configuration>

@@ -27,9 +27,11 @@ repositories {
 
 def springVersion = '6.1.14'
 def postgresVersion = '42.7.3'
+def aspectjWeaverVersion = '1.9.22'
 def log4jVersion = '2.23.1'
 def lombokVersion = '1.18.34'
 def hibernateVersion = '6.6.1.Final'
+def hibernateValidatorVersion = '8.0.1.Final'
 def jacksonDataBindVersion = '2.17.0'
 def jacksonDataTypeVersion = '2.17.2'
 
@@ -46,9 +48,21 @@ dependencies {
 			name: 'spring-orm',
 			version: springVersion
 
+	implementation group: 'jakarta.validation',
+			name: 'jakarta.validation-api',
+			version: '3.1.0'
+
 	implementation group: 'org.hibernate',
 			name: 'hibernate-core',
 			version: hibernateVersion
+
+	implementation group: 'org.hibernate',
+			name: 'hibernate-validator',
+			version: hibernateValidatorVersion
+
+	implementation group: 'org.glassfish',
+			name: 'jakarta.el',
+			version: '4.0.2'
 
 	implementation group: 'com.fasterxml.jackson.core',
 			name: 'jackson-databind',
@@ -62,6 +76,9 @@ dependencies {
 			name: 'postgresql',
 			version: postgresVersion
 
+	implementation group: 'org.aspectj',
+			name: 'aspectjweaver',
+			version: aspectjWeaverVersion
 
 	implementation group: 'org.apache.logging.log4j',
 			name: 'log4j-api',

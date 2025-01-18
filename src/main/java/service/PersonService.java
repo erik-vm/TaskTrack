@@ -11,5 +11,5 @@ public interface PersonService {
 
     List<Person> getAllPersons();
 
-    void deletePersonById(Long id);
+    int deletePersonById(Long id);
 }
