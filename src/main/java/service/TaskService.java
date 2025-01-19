@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface TaskService {
 
-    public Task saveTask(Task task);
+    Task saveTask(Task task);
 
-    public Task getTaskById(Long id);
+    Task getTaskById(Long id);
 
-    public Task updateTaskById(Long id, Task task);
+    Task updateTaskById(Long id, Task task);
 
-    public List<Task> getAllTasks();
+    List<Task> getAllTasks();
 
 }

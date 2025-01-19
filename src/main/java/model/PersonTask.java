@@ -26,7 +26,7 @@ public class PersonTask {
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
-    @Column(name = "started_at", nullable = false)
+    @Column(name = "started_at")
     private LocalDateTime startedAt;
 
     @Column(name = "finished_at")
