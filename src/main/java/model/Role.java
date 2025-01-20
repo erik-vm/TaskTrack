@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,12 +14,14 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     @Column(name = "role_id")
     private Long roleId;
     @Column(name = "role_name")
     String roleName;
     String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<PersonRole> people = new HashSet<>();
 }

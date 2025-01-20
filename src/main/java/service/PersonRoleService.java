@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PersonRoleService {
 
-    PersonRole savePersonRole(PersonRole personRole);
+    PersonRole startPersonRole(PersonRole personRole);
 
-    PersonRole updatePersonRole(PersonRole personRole);
+    PersonRole finishPersonRoleById(Long id, PersonRole personRole);
 
     PersonRole getPersonRoleById(Long id);
 

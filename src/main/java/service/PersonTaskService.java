@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PersonTaskService {
 
-    PersonTask savePersonTask(PersonTask personTask);
+    PersonTask startPersonTask(PersonTask personTask);
 
-    PersonTask updatePersonTask(PersonTask personTask);
+    PersonTask finishPersonTaskById(Long id, PersonTask personTask);
 
     PersonTask findPersonTaskById(Long id);
 
